@@ -4,7 +4,7 @@
  * Plugin URI: https://meetotm.com
  * Description: Tracks updates across your WordPress site and stores them for reporting. Runs automatically in the background.
  * Author: OTM
- * Version: 1.0.1
+ * Version: 1.0.2
  * License: GPL-2.0+
  * Text Domain: otm-care-plan-assistant
  *
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'OTM_UL_VERSION', '1.0.1' );
+define( 'OTM_UL_VERSION', '1.0.2' );
 define( 'OTM_UL_OPTION_KEY', 'otm_ul_api_key' );
 
 /**
