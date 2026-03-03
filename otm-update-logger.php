@@ -4,7 +4,7 @@
  * Plugin URI: https://meetotm.com
  * Description: Tracks updates across your WordPress site and stores them for reporting. Runs automatically in the background.
  * Author: OTM
- * Version: 1.0.2
+ * Version: 1.0.3
  * License: GPL-2.0+
  * Text Domain: otm-care-plan-assistant
  *
@@ -18,15 +18,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'OTM_UL_VERSION', '1.0.2' );
+define( 'OTM_UL_VERSION', '1.0.3' );
 define( 'OTM_UL_OPTION_KEY', 'otm_ul_api_key' );
 
 /**
- * GitHub repo URL for update checks. Change this to your repo when publishing.
+ * GitHub repo URL for update checks. Must be public, or use OTM_UL_GITHUB_TOKEN for private repos.
  *
  * @var string
  */
 define( 'OTM_UL_GITHUB_REPO', 'https://github.com/oldtownmedia/otm-care-plan-assistant/' );
+
+/**
+ * Optional: GitHub token for private repos. Leave empty for public repos.
+ * Create at: GitHub → Settings → Developer settings → Personal access tokens
+ * Scope needed: read:packages (or repo for private)
+ *
+ * @var string
+ */
+define( 'OTM_UL_GITHUB_TOKEN', '' );
 
 /**
  * Initialize Plugin Update Checker for GitHub-based updates.
@@ -55,8 +64,26 @@ function otm_ul_init_update_checker() {
 
 	$update_checker->setBranch( 'main' );
 	$update_checker->getVcsApi()->enableReleaseAssets();
+
+	if ( defined( 'OTM_UL_GITHUB_TOKEN' ) && OTM_UL_GITHUB_TOKEN ) {
+		$update_checker->setAuthentication( OTM_UL_GITHUB_TOKEN );
+	}
 }
 add_action( 'plugins_loaded', 'otm_ul_init_update_checker', 5 );
+
+/**
+ * Ensure plugin description is always shown in the Plugins list.
+ * PUC can override metadata from GitHub; this keeps our description visible.
+ */
+function otm_ul_plugin_metadata( $result, $action, $args ) {
+	if ( $action === 'plugin_information' && isset( $args->slug ) && $args->slug === 'otm-update-logger' ) {
+		if ( is_object( $result ) && empty( $result->sections['description'] ) ) {
+			$result->sections['description'] = 'Tracks updates across your WordPress site and stores them for reporting. Runs automatically in the background.';
+		}
+	}
+	return $result;
+}
+add_filter( 'plugins_api_result', 'otm_ul_plugin_metadata', 10, 3 );
 
 /**
  * Get the custom table name with prefix.

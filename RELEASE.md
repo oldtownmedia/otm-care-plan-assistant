@@ -35,3 +35,19 @@ This plugin uses [Plugin Update Checker](https://github.com/YahnisElsts/plugin-u
 - When a newer version exists, WordPress shows the standard update notice.
 - The zip is downloaded from the release asset URL.
 - No WordPress.org listing required.
+
+## Troubleshooting: "Could not determine if updates are available"
+
+**404 errors** usually mean one of:
+
+1. **Wrong repo URL** – Confirm the repo exists at `https://github.com/oldtownmedia/otm-care-plan-assistant` (or your actual org/user). Update `OTM_UL_GITHUB_REPO` if the URL is different.
+
+2. **Private repo** – The GitHub API returns 404 for private repos without auth. Add a [Personal Access Token](https://github.com/settings/tokens) with `repo` scope and set it:
+   ```php
+   define( 'OTM_UL_GITHUB_TOKEN', 'ghp_xxxxxxxxxxxx' );
+   ```
+   Do not commit the token to the repo; use a config or environment variable.
+
+3. **Wrong default branch** – If your repo uses `master` instead of `main`, change `setBranch( 'main' )` to `setBranch( 'master' )` in the plugin.
+
+4. **No release yet** – Create at least one release with a tag like `v1.0.0` and attach the plugin zip as an asset.
