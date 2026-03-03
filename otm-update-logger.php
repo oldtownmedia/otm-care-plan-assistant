@@ -21,6 +21,43 @@ define( 'OTM_UL_VERSION', '1.0.0' );
 define( 'OTM_UL_OPTION_KEY', 'otm_ul_api_key' );
 
 /**
+ * GitHub repo URL for update checks. Change this to your repo when publishing.
+ *
+ * @var string
+ */
+define( 'OTM_UL_GITHUB_REPO', 'https://github.com/oldtownmedia/otm-update-logger/' );
+
+/**
+ * Initialize Plugin Update Checker for GitHub-based updates.
+ */
+function otm_ul_init_update_checker() {
+	if ( ! is_admin() && ! wp_doing_cron() ) {
+		return;
+	}
+
+	$puc_file = __DIR__ . '/plugin-update-checker/plugin-update-checker.php';
+	if ( ! file_exists( $puc_file ) ) {
+		return;
+	}
+
+	require $puc_file;
+
+	if ( ! class_exists( 'YahnisElsts\PluginUpdateChecker\v5\PucFactory' ) ) {
+		return;
+	}
+
+	$update_checker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+		OTM_UL_GITHUB_REPO,
+		__FILE__,
+		'otm-update-logger'
+	);
+
+	$update_checker->setBranch( 'main' );
+	$update_checker->getVcsApi()->enableReleaseAssets();
+}
+add_action( 'plugins_loaded', 'otm_ul_init_update_checker', 5 );
+
+/**
  * Get the custom table name with prefix.
  *
  * @return string
