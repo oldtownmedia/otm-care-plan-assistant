@@ -25,7 +25,7 @@ define( 'OTM_UL_OPTION_KEY', 'otm_ul_api_key' );
  *
  * @var string
  */
-define( 'OTM_UL_GITHUB_REPO', 'https://github.com/oldtownmedia/otm-update-logger/' );
+define( 'OTM_UL_GITHUB_REPO', 'https://github.com/oldtownmedia/otm-care-plan-assistant/' );
 
 /**
  * Initialize Plugin Update Checker for GitHub-based updates.

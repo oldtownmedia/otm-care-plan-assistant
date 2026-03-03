@@ -4,11 +4,11 @@ This plugin uses [Plugin Update Checker](https://github.com/YahnisElsts/plugin-u
 
 ## Setup (one-time)
 
-1. **Create a public GitHub repo** (e.g. `oldtownmedia/otm-update-logger`).
+1. **GitHub repo:** `https://github.com/oldtownmedia/otm-care-plan-assistant`
 
-2. **Update the repo URL** in `otm-update-logger.php` if needed:
+2. **Update the repo URL** in `otm-update-logger.php` only if you move the repo:
    ```php
-   define( 'OTM_UL_GITHUB_REPO', 'https://github.com/your-org/otm-update-logger/' );
+   define( 'OTM_UL_GITHUB_REPO', 'https://github.com/oldtownmedia/otm-care-plan-assistant/' );
    ```
 
 3. **Ensure the plugin folder name is `otm-update-logger`** when installed. The build script creates a zip with this structure.
