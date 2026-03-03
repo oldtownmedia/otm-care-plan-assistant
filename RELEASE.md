@@ -1,4 +1,4 @@
-# Releasing OTM Update Logger
+# Releasing OTM Care Plan Assistant
 
 This plugin uses [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) to deliver updates via GitHub Releases. Client sites will see "Update available" in the WordPress Plugins screen.
 

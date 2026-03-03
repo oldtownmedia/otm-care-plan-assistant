@@ -1,6 +1,6 @@
 <?php
 /**
- * Uninstall OTM Update Logger
+ * Uninstall OTM Care Plan Assistant
  *
  * Fired when the plugin is uninstalled. Drops the custom table and removes the API key option.
  *

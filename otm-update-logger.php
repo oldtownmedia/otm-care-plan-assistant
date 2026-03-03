@@ -2,6 +2,7 @@
 /**
  * Plugin Name: OTM Care Plan Assistant
  * Plugin URI: https://meetotm.com
+ * Description: Tracks updates across your WordPress site and stores them for reporting. Runs automatically in the background.
  * Author: OTM
  * Version: 1.0.1
  * License: GPL-2.0+
@@ -426,8 +427,8 @@ function otm_ul_rest_info( $request ) {
  */
 function otm_ul_admin_menu() {
 	add_management_page(
-		__( 'Update Logger', 'otm-update-logger' ),
-		__( 'Update Logger', 'otm-update-logger' ),
+		__( 'Care Plan Assistant', 'otm-update-logger' ),
+		__( 'Care Plan Assistant', 'otm-update-logger' ),
 		'manage_options',
 		'otm-update-logger',
 		'otm_ul_admin_page'
@@ -484,7 +485,7 @@ function otm_ul_admin_page() {
 	$log_url = rest_url( 'otm-updates/v1/log' );
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'OTM Update Logger', 'otm-update-logger' ); ?></h1>
+		<h1><?php esc_html_e( 'OTM Care Plan Assistant', 'otm-update-logger' ); ?></h1>
 
 		<div class="card" style="max-width: 800px; padding: 20px; margin: 20px 0;">
 			<h2><?php esc_html_e( 'API Endpoint', 'otm-update-logger' ); ?></h2>
