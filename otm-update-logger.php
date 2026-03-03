@@ -3,7 +3,7 @@
  * Plugin Name: OTM Care Plan Assistant
  * Plugin URI: https://meetotm.com
  * Author: OTM
- * Version: 1.0.0
+ * Version: 1.0.1
  * License: GPL-2.0+
  * Text Domain: otm-care-plan-assistant
  *
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'OTM_UL_VERSION', '1.0.0' );
+define( 'OTM_UL_VERSION', '1.0.1' );
 define( 'OTM_UL_OPTION_KEY', 'otm_ul_api_key' );
 
 /**
