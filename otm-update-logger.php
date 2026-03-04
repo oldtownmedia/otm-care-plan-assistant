@@ -140,7 +140,7 @@ register_activation_hook( __FILE__, 'otm_ul_activate' );
 function otm_ul_insert_log( $update_type, $name, $slug, $old_version, $new_version, $status = 'success' ) {
 	global $wpdb;
 	$table = otm_ul_get_table_name();
-	$cutoff = date( 'Y-m-d H:i:s', strtotime( '-60 seconds', current_time( 'timestamp' ) ) );
+	$cutoff = date( 'Y-m-d H:i:s', strtotime( '-60 seconds', time() ) );
 
 	$existing = $wpdb->get_var(
 		$wpdb->prepare(
@@ -300,8 +300,6 @@ function otm_ul_check_api_key( $request ) {
 	$auth = $request->get_header( 'Authorization' );
 	if ( $auth && preg_match( '/^Bearer\s+(.+)$/i', $auth, $m ) ) {
 		$key = trim( $m[1] );
-	} elseif ( $request->get_param( 'api_key' ) !== null ) {
-		$key = (string) $request->get_param( 'api_key' );
 	}
 
 	$stored = get_option( OTM_UL_OPTION_KEY, '' );
@@ -438,12 +436,11 @@ function otm_ul_rest_log( $request ) {
 function otm_ul_rest_info( $request ) {
 	return new WP_REST_Response(
 		array(
-			'site'          => home_url(),
-			'name'          => get_bloginfo( 'name' ),
-			'wp_version'    => get_bloginfo( 'version' ),
-			'php_version'   => PHP_VERSION,
+			'site'           => home_url(),
+			'name'           => get_bloginfo( 'name' ),
+			'wp_version'     => get_bloginfo( 'version' ),
 			'plugin_version' => OTM_UL_VERSION,
-			'status'        => 'connected',
+			'status'         => 'connected',
 		),
 		200
 	);
@@ -543,7 +540,7 @@ function otm_ul_admin_page() {
 					<tr><td><code>limit</code></td><td><?php esc_html_e( 'Max records (default 200, max 1000)', 'otm-update-logger' ); ?></td><td><code>100</code></td></tr>
 				</tbody>
 			</table>
-			<p><?php esc_html_e( 'Authenticate via Authorization: Bearer {key} header or api_key query parameter.', 'otm-update-logger' ); ?></p>
+			<p><?php esc_html_e( 'Authenticate via Authorization: Bearer {key} header.', 'otm-update-logger' ); ?></p>
 		</div>
 
 		<div class="card" style="max-width: 800px; padding: 20px; margin: 20px 0;">
